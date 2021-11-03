@@ -10,15 +10,15 @@ namespace Kendo_UI_MVC.Services
     public class SQLCommand
     {
         DBConnection db = new DBConnection();
-        public List<barang> getbarang()
+        public List<Barang> getbarang()
         {
-            List<barang> brg = new List<barang>();
+            List<Barang> brg = new List<Barang>();
             MySqlCommand comm = db.comm("SELECT * FROM barang order by createdate desc");
             db.conn.Open();
             MySqlDataReader reader = comm.ExecuteReader();
             while (reader.Read())
             {
-                brg.Add(new barang
+                brg.Add(new Barang
                 {
                     id_barang = Convert.ToInt32(reader["id_barang"]),
                     nama_barang = reader["nama_barang"].ToString(),
@@ -31,17 +31,17 @@ namespace Kendo_UI_MVC.Services
             return brg;
         }
 
-        public void createbarang(barang brg)
+        public void createbarang(Barang brg)
         {
             InsUpdDelConQ($"insert into barang (nama_barang, harga, stok) values ('{brg.nama_barang}', {brg.harga}, {brg.stok})");
         }
 
-        public void updatebarang(barang brg)
+        public void updatebarang(Barang brg)
         {
             InsUpdDelConQ($"update barang set nama_barang = '{brg.nama_barang}', harga = {brg.harga}, stok = {brg.stok} where id_barang = {brg.id_barang}");
         }
 
-        public void deletebarang(barang brg)
+        public void deletebarang(Barang brg)
         {
             InsUpdDelConQ($"delete from barang where id_barang = {brg.id_barang}");
         }

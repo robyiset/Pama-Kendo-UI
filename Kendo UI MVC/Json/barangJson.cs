@@ -10,20 +10,21 @@ namespace Kendo_UI_MVC.Json
 {
     public class barangJson : Controller
     {
-        SQLCommand sql = new SQLCommand();
+        private Context cxt = new Context();
+
         [HttpGet]
         public JsonResult get()
         {
-            return Json(sql.getbarang());
+            return Json(cxt.GetBarang());
         }
 
         [HttpGet]
         public JsonResult create(int id_barang, string nama_barang, int harga, int stok)
         {
-            barang brg = new barang { id_barang = id_barang, nama_barang = nama_barang, harga = harga, stok = stok };
+            Barang brg = new Barang { id_barang = id_barang, nama_barang = nama_barang, harga = harga, stok = stok };
             try
             {
-                sql.createbarang(brg);
+                cxt.CreateBarang(brg);
             }
             catch (Exception ex)
             {
@@ -34,11 +35,10 @@ namespace Kendo_UI_MVC.Json
         [HttpGet]
         public JsonResult update(int id_barang, string nama_barang, int harga, int stok)
         {
-            barang brg = new barang { id_barang = id_barang, nama_barang = nama_barang, harga = harga, stok = stok };
-            string e = string.Empty;
+            Barang brg = new Barang { id_barang = id_barang, nama_barang = nama_barang, harga = harga, stok = stok };
             try
             {
-                sql.updatebarang(brg);
+                cxt.UpdateBarang(brg);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace Kendo_UI_MVC.Json
         {
             try
             {
-                sql.deletebarang(new barang { id_barang = id_barang });
+                cxt.DeleteBarang(id_barang);
             }
             catch (Exception ex)
             {
