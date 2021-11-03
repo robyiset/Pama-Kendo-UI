@@ -15,14 +15,14 @@
                             url: crudServiceBaseUrl + "/getbarang",
                             dataType: "json"
                         },
-                        update: {
-                            url: crudServiceBaseUrl + "/detailproducts/Update",
-                            dataType: "jsonp"
-                        },
-                        destroy: {
-                            url: crudServiceBaseUrl + "/detailproducts/Destroy",
-                            dataType: "jsonp"
-                        },
+                        //update: {
+                        //    url: crudServiceBaseUrl + "/detailproducts/Update",
+                        //    dataType: "jsonp"
+                        //},
+                        //destroy: {
+                        //    url: crudServiceBaseUrl + "/detailproducts/Destroy",
+                        //    dataType: "jsonp"
+                        //},
                         parameterMap: function (options, operation) {
                             if (operation !== "read" && options.models) {
                                 return { models: kendo.stringify(options.models) };
@@ -36,13 +36,13 @@
                         field: "TotalSales",
                         aggregate: "sum"
                     }],
-                    group: {
-                        field: "Category.nama_barang",
-                        dir: "desc",
-                        aggregates: [
-                            { field: "TotalSales", aggregate: "sum" }
-                        ]
-                    },
+                    //group: {
+                    //    field: "Category.nama_barang",
+                    //    dir: "desc",
+                    //    aggregates: [
+                    //        { field: "TotalSales", aggregate: "sum" }
+                    //    ]
+                    //},
                     schema: {
                         model: {
                             id: "id_barang",
@@ -83,7 +83,7 @@
                 navigatable: true,
                 resizable: true,
                 reorderable: true,
-                groupable: true,
+                groupable: false,
                 filterable: true,
                 dataBound: onDataBound,
                 toolbar: ["excel", "pdf", "search"],
@@ -99,7 +99,7 @@
                 }, {
                     field: "nama_barang",
                     title: "Nama Barang",
-                    template: "<div class='product-photo' id='#:id_barang#'></div><div class='product-name'>#: nama_barang #</div>",
+                    template: "<div class='product-name' id='#:id_barang#'>#: nama_barang #</div>",
                     width: 300
                 }, {
                     field: "harga",
