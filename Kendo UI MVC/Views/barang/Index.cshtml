@@ -13,24 +13,30 @@
                 dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: crudServiceBaseUrl + "/getbarang",
+                            url: crudServiceBaseUrl + "/get",
                             dataType: "json"
                         },
                         update: {
-                            url: crudServiceBaseUrl + "/Products/Update",
+                            url: crudServiceBaseUrl + "/update",
                             dataType: "json"
                         },
                         destroy: {
-                            url: crudServiceBaseUrl + "/Products/Destroy",
+                            url: crudServiceBaseUrl + "/delete",
                             dataType: "json"
                         },
                         create: {
-                            url: crudServiceBaseUrl + "/Products/Create",
+                            url: crudServiceBaseUrl + "/create",
                             dataType: "json"
                         },
                         parameterMap: function (options, operation) {
-                            if (operation !== "read" && options.models) {
-                                return { models: kendo.stringify(options.models) };
+                            if (operation == "create" && options.models) {
+                                return "nama_barang=" + options.models[0]["nama_barang"] + "&harga=" + options.models[0]["harga"] + "&stok=" + options.models[0]["stok"];
+                            }
+                            else if (operation == "update" && options.models) {
+                                return "id_barang=" + options.models[0]["id_barang"] + "&nama_barang=" + options.models[0]["nama_barang"] + "&harga=" + options.models[0]["harga"] + "&stok=" + options.models[0]["stok"];
+                            }
+                            if (operation == "destroy" && options.models) {
+                                return "id_barang=" + options.models[0]["id_barang"];
                             }
                         }
                     },
@@ -63,9 +69,6 @@
             });
         });
 
-        function customBoolEditor(container, options) {
-            $('<input class="k-checkbox" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
-        }
     </script>
 </div>
 
