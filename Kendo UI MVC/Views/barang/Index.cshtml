@@ -6,6 +6,71 @@
 
 <div id="example">
     <div id="grid"></div>
+
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "https://localhost:44373/barangjson",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "/getbarang",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: crudServiceBaseUrl + "/Products/Update",
+                            dataType: "json"
+                        },
+                        destroy: {
+                            url: crudServiceBaseUrl + "/Products/Destroy",
+                            dataType: "json"
+                        },
+                        create: {
+                            url: crudServiceBaseUrl + "/Products/Create",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    pageSize: 20,
+                    schema: {
+                        model: {
+                            id: "id_barang",
+                            fields: {
+                                id_barang: { editable: false, nullable: true },
+                                nama_barang: { validation: { required: true } },
+                                harga: { type: "number", validation: { required: true, min: 1 } },
+                                stok: { type: "number", validation: { min: 0, required: true } }
+                            }
+                        }
+                    }
+                });
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: true,
+                height: 550,
+                toolbar: ["create"],
+                columns: [
+                    { field: "nama_barang", title: "Nama Barang", width: "120px" },
+                    { field: "harga", title: "Harga", width: "120px" },
+                    { field: "stok", title: "Stok", width: "120px" },
+                    { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
+                editable: "inline"
+            });
+        });
+
+        function customBoolEditor(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+        }
+    </script>
+</div>
+
+@*<div id="example">
+    <div id="grid"></div>
     <script>
         $(document).ready(function () {
             var crudServiceBaseUrl = "https://localhost:44373/barangjson",
@@ -319,5 +384,5 @@
             margin-right: 0;
         }
     </style>
-</div>
+</div>*@
 
