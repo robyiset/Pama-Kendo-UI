@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kendo_UI_MVC.Controllers
 {
-    [Authorize(Roles = "user")]
+    [Authorize]
     public class barangController : Controller
     {
         [HttpGet]

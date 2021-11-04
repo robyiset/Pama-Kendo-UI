@@ -9,6 +9,5 @@ namespace Kendo_UI_MVC.Models
     {
         public string username { get; set; }
         public string password { get; set; }
-        public object USERNAMEOREMAIL { get; internal set; }
     }
 }

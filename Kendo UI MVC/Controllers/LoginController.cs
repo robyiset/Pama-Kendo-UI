@@ -24,11 +24,11 @@ namespace Kendo_UI_MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Validating(string username, string password)
+        public async Task<IActionResult> Validating(Login login)
         {
-            if (username == "superuser" && password == "123123")
+            if (login.username == "superuser" && login.password == "123123")
             {
-                ClaimsPrincipal principal = cookie.UserCookie(username);
+                ClaimsPrincipal principal = cookie.UserCookie(login.username);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties()
                 {
                     RedirectUri = "/barang",

@@ -46,13 +46,6 @@ namespace Kendo_UI_MVC
                 options.SlidingExpiration = true;
             });
 
-            services.AddDistributedMemoryCache();
-            //services.AddSession(options =>
-            //{
-            //    options.IdleTimeout = TimeSpan.FromMinutes(10);
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.IsEssential = true;
-            //});
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
