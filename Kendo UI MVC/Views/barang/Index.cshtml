@@ -29,6 +29,19 @@
                             dataType: "json"
                         },
                         parameterMap: function (options, operation) {
+                            console.log(operation);
+                            if (operation === "read" && options.filter) {
+                                //var str = "logic=" + options.filter["logic"];
+                                var str;
+                                console.log(options.filter["logic"]);
+                                $.each(options.filter["filters"], function (i, item) {
+                                    str = str + "&opr=" + item["operator"] + "&val=" + item["value"] + "&fld=" + item["field"];
+                                    console.log(item["operator"]);
+                                    console.log(item["value"]);
+                                    console.log(item["field"]);
+                                });
+                                return str;
+                            }
                             if (operation == "create" && options.models) {
                                 return "nama_barang=" + options.models[0]["nama_barang"] + "&harga=" + options.models[0]["harga"] + "&stok=" + options.models[0]["stok"];
                             }
@@ -41,7 +54,9 @@
                         }
                     },
                     batch: true,
-                    pageSize: 20,
+                    pageSize: 10,
+                    serverPaging: true,
+                    serverFiltering: true,
                     schema: {
                         model: {
                             id: "id_barang",
@@ -59,11 +74,42 @@
                 dataSource: dataSource,
                 pageable: true,
                 height: 550,
+                filterable: {
+                    mode: "row"
+                },
                 toolbar: ["create"],
                 columns: [
-                    { field: "nama_barang", title: "Nama Barang", width: "120px" },
-                    { field: "harga", title: "Harga", width: "120px" },
-                    { field: "stok", title: "Stok", width: "120px" },
+                    {
+                        field: "nama_barang",
+                        title: "Nama Barang",
+                        width: "120px",
+                        filterable: {
+                            cell: {
+                                operator: "contains",
+                                suggestionOperator: "contains"
+                            }
+                        }
+                    },
+                    {
+                        field: "harga",
+                        title: "Harga",
+                        width: "120px",
+                        filterable: {
+                            cell: {
+                                operator: "gte"
+                            }
+                        }
+                    },
+                    {
+                        field: "stok",
+                        title: "Stok",
+                        width: "120px",
+                        filterable: {
+                            cell: {
+                                operator: "gte"
+                            }
+                        }
+                    },
                     { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
                 editable: "inline"
             });

@@ -13,9 +13,16 @@ namespace Kendo_UI_MVC.Json
         private Context cxt = new Context();
 
         [HttpGet]
-        public JsonResult get()
+        public JsonResult get(string[] opr, string[] val, string[] fld)
         {
-            return Json(cxt.GetBarang());
+            if (opr.Length == 0 && val.Length == 0  && fld.Length == 0 )
+            {
+                return Json(cxt.GetBarang());
+            }
+            else
+            {
+                return Json(cxt.FilterBarang(opr, val, fld));
+            }
         }
 
         [HttpGet]

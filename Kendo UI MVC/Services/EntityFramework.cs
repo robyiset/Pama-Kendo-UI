@@ -38,6 +38,249 @@ namespace Kendo_UI_MVC.Services
         {
             return context.barang.OrderByDescending(i => i.createdate).ToList();
         }
+        public List<Barang> FilterBarang(string[] opr, string[] val, string[] fld)
+        {
+            List<Barang> lst = new List<Barang>();
+            if (opr.Count() > 0 && val.Count() > 0 && fld.Count() > 0 && opr.Count() == val.Count() && val.Count() == fld.Count())
+            {
+                int i = 0;
+                foreach (var item in fld)
+                {
+                    if (i == 0)
+                    {
+                        switch (opr[i])
+                        {
+                            case "gte":
+                                switch (item)
+                                {
+                                    case "harga":
+                                        lst = context.barang.Where(p => p.harga >= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "stok":
+                                        lst = context.barang.Where(p => p.stok >= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "gt":
+                                switch (item)
+                                {
+                                    case "harga":
+                                        lst = context.barang.Where(p => p.harga > Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "stok":
+                                        lst = context.barang.Where(p => p.stok > Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "lte":
+                                switch (item)
+                                {
+                                    case "harga":
+                                        lst = context.barang.Where(p => p.harga <= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "stok":
+                                        lst = context.barang.Where(p => p.stok <= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "lt":
+                                switch (item)
+                                {
+                                    case "harga":
+                                        lst = context.barang.Where(p => p.harga < Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "stok":
+                                        lst = context.barang.Where(p => p.stok < Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "eq":
+                                switch (item)
+                                {
+                                    case "nama_barang":
+                                        lst = context.barang.Where(p => p.nama_barang.ToLower() == val[i].ToLower()).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "harga":
+                                        lst = context.barang.Where(p => p.harga == Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    case "stok":
+                                        lst = context.barang.Where(p => p.stok == Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "contains":
+                                switch (item)
+                                {
+                                    case "nama_barang":
+                                        lst = context.barang.Where(p => p.nama_barang.ToLower().Contains(val[i].ToLower())).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "neq":
+                                switch (item)
+                                {
+                                    case "nama_barang":
+                                        lst = context.barang.Where(p => p.nama_barang.ToLower() != val[i].ToLower()).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            case "doesnotcontains":
+                                switch (item)
+                                {
+                                    case "nama_barang":
+                                        lst = context.barang.Where(p => !p.nama_barang.ToLower().Contains(val[i].ToLower())).OrderByDescending(i => i.createdate).ToList();
+                                        break;
+                                    default:
+                                        // code block
+                                        break;
+                                }
+                                break;
+                            default:
+                                // code block
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (opr[i])
+                    {
+                        case "gte":
+                            switch (item)
+                            {
+                                case "harga":
+                                    lst = lst.Where(p => p.harga >= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "stok":
+                                    lst = lst.Where(p => p.stok >= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "gt":
+                            switch (item)
+                            {
+                                case "harga":
+                                    lst = lst.Where(p => p.harga > Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "stok":
+                                    lst = lst.Where(p => p.stok > Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "lte":
+                            switch (item)
+                            {
+                                case "harga":
+                                    lst = lst.Where(p => p.harga <= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "stok":
+                                    lst = lst.Where(p => p.stok <= Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "lt":
+                            switch (item)
+                            {
+                                case "harga":
+                                    lst = lst.Where(p => p.harga < Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "stok":
+                                    lst = lst.Where(p => p.stok < Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "eq":
+                            switch (item)
+                            {
+                                case "nama_barang":
+                                    lst = lst.Where(p => p.nama_barang.ToLower() == val[i].ToLower()).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "harga":
+                                    lst = lst.Where(p => p.harga == Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                case "stok":
+                                    lst = lst.Where(p => p.stok == Convert.ToInt32(val[i])).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "contains":
+                            switch (item)
+                            {
+                                case "nama_barang":
+                                    lst = lst.Where(p => p.nama_barang.ToLower().Contains(val[i].ToLower())).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "neq":
+                            switch (item)
+                            {
+                                case "nama_barang":
+                                    lst = lst.Where(p => p.nama_barang.ToLower() != val[i].ToLower()).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        case "doesnotcontains":
+                            switch (item)
+                            {
+                                case "nama_barang":
+                                    lst = lst.Where(p => !p.nama_barang.ToLower().Contains(val[i].ToLower())).OrderByDescending(i => i.createdate).ToList();
+                                    break;
+                                default:
+                                    // code block
+                                    break;
+                            }
+                            break;
+                        default:
+                            // code block
+                            break;
+                    }
+                    }
+                    i++;
+                }
+            }
+            return lst;
+        }
         public void CreateBarang(Barang brg)
         {
             context.Database.EnsureCreated();
