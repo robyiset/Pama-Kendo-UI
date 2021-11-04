@@ -8,7 +8,7 @@
     <div class="demo-section k-content">
         <div id="validation-success"></div>
 
-        <form id="exampleform"></form>
+        <form id="exampleform"  asp-action="Validating" asp-controller="Login" method="POST"></form>
     </div>
 
     <script>
@@ -17,20 +17,15 @@
 
             $("#exampleform").kendoForm({
                 orientation: "vertical",
-                formData: {
-                    Username: "roby",
-                    Password: "roby123"
-                },
                 items: [{
                     type: "group",
-                    label: "Registration Form",
+                    label: "Login",
                     items: [
                         { field: "Username", label: "Username:", validation: { required: true } },
                         {
                             field: "Password",
                             label: "Password:",
                             validation: { required: true },
-                            hint: "Hint: enter alphanumeric characters only.",
                             editor: function(container, options) {
                                 container.append($("<input type='password' class='k-textbox k-valid' id='Password' name='Password' title='Password' required='required' autocomplete='off' aria-labelledby='Password-form-label' data-bind='value:Password' aria-describedby='Password-form-hint'>"));
                             }
@@ -43,6 +38,7 @@
                 submit: function(e) {
                     e.preventDefault();
                     validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+                    $("#exampleform").submit();
                 },
                 clear: function(ev) {
                     validationSuccess.html("");

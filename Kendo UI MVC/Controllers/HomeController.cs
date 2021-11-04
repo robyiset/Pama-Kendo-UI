@@ -1,4 +1,5 @@
 ﻿using Kendo_UI_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kendo_UI_MVC.Controllers
 {
+    [Authorize(Roles = "user")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
