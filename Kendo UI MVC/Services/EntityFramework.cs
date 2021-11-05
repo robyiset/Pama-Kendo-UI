@@ -14,7 +14,7 @@ namespace Kendo_UI_MVC.Services
         public DbSet<Barang> barang { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("Server=192.168.1.12;Port=3306;Database=penjualan;Uid=root;Pwd=r0131_g4nt3nG;");
+            optionsBuilder.UseMySQL("Server={host};Port=3306;Database=penjualan;Uid={username};Pwd={password};");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
