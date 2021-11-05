@@ -274,13 +274,16 @@ namespace Kendo_UI_MVC.Services
                         default:
                             // code block
                             break;
-                    }
+                        }
                     }
                     i++;
                 }
             }
             return lst;
         }
+
+        
+
         public void CreateBarang(Barang brg)
         {
             context.Database.EnsureCreated();

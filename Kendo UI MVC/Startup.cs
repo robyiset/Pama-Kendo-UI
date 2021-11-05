@@ -69,8 +69,8 @@ namespace Kendo_UI_MVC
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
